@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controlador SPOT</title>
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+</head>
+<body>
+    <div style="display: flex; flex-direction: row; align-items: center; gap: 5px;">
+        <h1>SPOT Faker</h1> <div id="connected" style="background-color: red; border-radius: 100%; width: 10px; height: 10px;"></div>
+    </div>
+    <button>Connectar MQTT</button>
+    <div>
+        <button id="low_water">Notificacion falta de agua</button>
+        <button id="graph">Generar datos de graficas</button>
+        <button id="current">Generar datos actuales</button>
+        <button id="low_light">Notificacion falla de luz</button>
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html>
