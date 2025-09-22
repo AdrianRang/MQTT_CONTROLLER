@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Controlador SPOT</title>
     <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+    <style>
+        button {
+            height: 30px;
+            margin: 5px;
+        }
+    </style>
 </head>
 <body>
     <div style="display: flex; flex-direction: row; align-items: center; gap: 5px;">
@@ -12,9 +18,11 @@
     </div>
     <div>
         <button id="low_water">Notificacion falta de agua</button>
-        <button id="graph">Generar datos de graficas</button>
+        <!-- <button id="graph">Generar datos de graficas</button> -->
         <button id="current">Generar datos actuales</button>
         <button id="low_light">Notificacion falla de luz</button>
+        <button id="reset">Reset Notifications</button>
+        <button id="continuous">Datos continuos</button>
     </div>
     <script src="./script.js"></script>
 </body>
