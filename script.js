@@ -1,4 +1,4 @@
-const host = "host.hivemq.cloud"
+const host = "8063d0822b7649778b3dea7707a3b667.s1.eu.hivemq.cloud"
 const user = "admin"
 const pass = "A1234567b"
 
