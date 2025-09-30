@@ -42,31 +42,31 @@ client.on('reconnect', () => {
         client.publish("low_water", "14");
     })
 
-    // document.getElementById("graph").addEventListener("click", ()=>{
-    // const topics = [
-    //   "humidity/history",
-    //   "light-level/history",
-    //   "water/history"
-    // ]
+    document.getElementById("graph").addEventListener("click", ()=>{
+    const topics = [
+      "humidity/history",
+      "light-level/history",
+      "water/history"
+    ]
 
-    // topics.forEach((topic) => {
-    //   let msg = "";
-    //   let data = Array.from({ length: 50 }, (_, i) => ({
-    //     date: Date.now() - (49 - i) * 3600 * 1000,
-    //     value: (Math.sin(i/2.5)+1.5)/3 + (Math.random()-0.5)/3
-    //   }))
+    topics.forEach((topic) => {
+      let msg = "";
+      let data = Array.from({ length: 50 }, (_, i) => ({
+        date: Date.now() - (49 - i) * 3600 * 1000,
+        value: (Math.sin(i/2.5)+1.5)/3 + (Math.random()-0.5)/3
+      }))
 
-    //   data.forEach((v)=>{
-    //     msg+=v.date;
-    //     msg+=":"
-    //     msg+=v.value
-    //     msg+=","
-    //   })
+      data.forEach((v)=>{
+        msg+=v.date;
+        msg+=":"
+        msg+=v.value
+        msg+=","
+      })
 
-    //   // msg=' ';
+      // msg=' ';
 
-    //   client.publish(topic, msg, {retain: true})
-    // })})
+      client.publish(topic, msg, {retain: true})
+    })})
 
     document.getElementById("current").addEventListener("click", ()=>{
         client.publish("light-level/curr", String(Math.random() * 2000 + 5000))
@@ -77,90 +77,4 @@ client.on('reconnect', () => {
     document.getElementById("low_light").addEventListener("click", ()=>{
         client.publish("light-level/alert", "1246")
     })
-
-    document.getElementById("reset").addEventListener("click", ()=>{
-        client.publish("light-level/alert", "", {retain: true})
-    })
-
-    document.getElementById("continuous").addEventListener("click", async ()=>{
-        let hums = [];
-        let lvls = [];
-        let lights = [];
-        const startTime = Date.now()
-        const startLevel = 18;
-
-        let lstTime = Date.now();
-        let duration = 5000;
-        let curr = 0;
-
-        while(true) {
-            const hum = 65 + Math.random()*3 - 1.5 - (startLevel - (Date.now()-startTime)/400000)
-            client.publish("humidity/curr", String(hum))
-            hums.push(hum);
-            
-            let msg = "";
-            let data = Array.from({ length: Math.min(hums.length, 100) }, (_, i) => ({
-                date: i,
-                value: hums[i]
-            }))
-
-            data.forEach((v)=>{
-                msg+=v.date;
-                msg+=":"
-                msg+=v.value
-                msg+=","
-            })
-
-            client.publish("humidity/history", msg);
-
-            client.publish("water/curr", String(Math.round(startLevel - (Date.now()-startTime)/50000)))
-            lvls.push(startLevel - (Date.now()-startTime)/50000)
-
-            msg = "";
-            data = Array.from({ length: Math.min(lvls.length, 100) }, (_, i) => ({
-                date: i,
-                value: lvls[i]
-            }))
-
-            data.forEach((v)=>{
-                msg+=v.date;
-                msg+=":"
-                msg+=v.value
-                msg+=","
-            })
-
-            client.publish("water/history", msg);
-
-            if(Date.now()-lstTime > duration) {
-                curr = Math.random() * 100 - 50;
-                duration = Math.random() * 10000;
-                lstTime = Date.now();
-            }
-
-            const light = curr + 1224 + Math.random()*3 - 1.5
-            client.publish("light-level/curr", String(light))
-            lights.push(light);
-            
-            msg = "";
-            data = Array.from({ length: Math.min(lights.length, 100) }, (_, i) => ({
-                date: i,
-                value: lights[i]
-            }))
-
-            data.forEach((v)=>{
-                msg+=v.date;
-                msg+=":"
-                msg+=v.value
-                msg+=","
-            })
-
-            client.publish("light-level/history", msg);
-
-            await sleep(1000);
-        }
-    })
 // })
-
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
