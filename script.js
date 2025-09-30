@@ -1,6 +1,9 @@
-// const mqtt = require('mqtt');
+const host = "host.hivemq.cloud"
+const user = "admin"
+const pass = "A1234567b"
+
 const options = {
-    host: "8063d0822b7649778b3dea7707a3b667.s1.eu.hivemq.cloud",
+    host: host,
     port: 8884,
     protocol: "wss",
     username: "admin",
@@ -10,7 +13,7 @@ const options = {
 };
 
 // alert("connecting")
-const client = mqtt.connect('wss://8063d0822b7649778b3dea7707a3b667.s1.eu.hivemq.cloud:8884/mqtt', options);
+const client = mqtt.connect('wss://' + host + ':8884/mqtt', options);
 client.connect();
 
 client.on('connect', () => {
